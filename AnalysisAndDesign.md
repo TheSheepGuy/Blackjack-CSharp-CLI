@@ -46,19 +46,18 @@ A blackjack clone being able to be played using the command line.
 
 * Properties:
   * ContainingCards, list of Cards (on construction, fill with 52 shuffled Cards, one from each value and suit (henceforth referred to as "standard deck"). Cards can be removed and added at any time.)
+  * TotalValue, int (updated whenever Remove and PutCard are run.)
 * Methods:
   * Shuffle, void (shuffle the order of the cards)
-  * RemoveCard, Card (removes a Card from the deck and returns it)
-  * PutCard, void (adds the entered Card to the deck)
+  * RemoveCard, Card (removes a Card from the deck (from the start of the list) and returns it)
+  * PutCard, void (adds the entered Card to the deck (at the end of the list). This and the method above also update TotalValue.)
   * RevealAll, void (changes all of the Cards in ContainingCards to be reavealed instead of not)
 
 ### Player
 
 * Inherits from Deck.
 * Properites:
-  * IsHuman, bool
   * IsBust, bool
-  * TotalValue, int
 * Methods:
   * Override RemoveCard and PutCard by subtracting/adding the value to TotalValue.
   * CheckBust, bool (checks if the totalValue is over 21)

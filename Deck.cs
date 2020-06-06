@@ -24,12 +24,13 @@ namespace Blackjack_CSharp_CLI
             }
             for (int clubLoop = 1; clubLoop < 14; clubLoop++)
             {
-                ContainingCards.Add(new Card(clubLoop, "heart", false));
+                ContainingCards.Add(new Card(clubLoop, "club", false));
             }
             for (int spadeLoop = 1; spadeLoop < 14; spadeLoop++)
             {
-                ContainingCards.Add(new Card(spadeLoop, "heart", false));
+                ContainingCards.Add(new Card(spadeLoop, "spade", false));
             }
+            TotalValue = 394;
         }
         public Deck(List<Card> initialCards)
         {

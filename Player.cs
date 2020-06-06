@@ -8,6 +8,7 @@ namespace Blackjack_CSharp_CLI
     {
         public bool IsBust { get; set; }
 
+        public Player() : base() { }
         public Player(List<Card> givenCards) : base(givenCards) { }
         public bool CheckBust()
         {

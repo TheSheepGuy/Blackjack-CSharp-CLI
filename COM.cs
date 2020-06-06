@@ -8,6 +8,7 @@ namespace Blackjack_CSharp_CLI
     {
         public int MaxHitWillingness;
 
+        public COM() : base() { }
         public COM(List<Card> givenCards) : base(givenCards) { }
         public override bool WillHit()
         {

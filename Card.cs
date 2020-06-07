@@ -54,17 +54,6 @@ namespace Blackjack_CSharp_CLI
             }
         }
 
-        public string GetLabel()
-        {
-            return Value switch
-            {
-                1 => "A",
-                11 => "J",
-                12 => "Q",
-                13 => "K",
-                _ => Value.ToString(),
-            };
-        }
         public ConsoleColor GetColour()
         {
             return Suit switch

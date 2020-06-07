@@ -5,8 +5,6 @@ namespace Blackjack_CSharp_CLI
 {
     class Player : Deck
     {
-        public bool IsBust { get; set; }
-
         public Player() : base() { }
         public Player(List<Card> givenCards) : base(givenCards) { }
         public bool CheckBust()

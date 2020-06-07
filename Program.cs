@@ -61,10 +61,10 @@ namespace Blackjack_CSharp_CLI
                 {
                     DrawTable(humanPlayers);
                     DrawTable(comPlayers);
-                    if (humanPlayers[currentPlayer].WillHit(currentPlayer) == true)
+                    if (humanPlayers[currentPlayer].WillHit(currentPlayer))
                     {
                         humanPlayers[currentPlayer].PutCard(mainDeck.RemoveCard(), true);
-                        if (humanPlayers[currentPlayer].CheckBust() == true)
+                        if (humanPlayers[currentPlayer].CheckBust())
                         {
                             DrawTable(humanPlayers);
                             DrawTable(comPlayers);
@@ -98,7 +98,7 @@ namespace Blackjack_CSharp_CLI
                 {
                     DrawTable(humanPlayers);
                     DrawTable(comPlayers);
-                    if (comPlayers[currentPlayer].WillHit(currentPlayer) == true)
+                    if (comPlayers[currentPlayer].WillHit(currentPlayer))
                     {
                         comPlayers[currentPlayer].PutCard(mainDeck.RemoveCard(), true);
                         if (comPlayers[currentPlayer].CheckBust())
@@ -132,7 +132,7 @@ namespace Blackjack_CSharp_CLI
             {
                 Console.WriteLine("No-one won this game.");
             }
-            else if (winnerHuman == true)
+            else if (winnerHuman)
             {
 
                 Console.WriteLine("The winner is player " + (highestPlayer + 1).ToString());
@@ -185,7 +185,7 @@ namespace Blackjack_CSharp_CLI
             // Notice that to ensure that all cards stay in the game, any used cards get passed back into mainDeck.
             mainDeck.ContainingCards.AddRange(PlayGame(mainDeck, noOfHumans, noOfCOMs));
             bool keepGoing = true;
-            while (keepGoing == true)
+            while (keepGoing)
             {
                 Console.WriteLine("Would you like to play again? [y/N]");
                 string choice = Console.ReadLine();

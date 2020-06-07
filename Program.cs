@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Blackjack_CSharp_CLI
 {
@@ -26,34 +27,10 @@ namespace Blackjack_CSharp_CLI
             }
         }
 
-        static void Main(string[] args)
+        private static List<Card> PlayGame(Deck mainDeck, int noOfHumans, int noOfCOMs)
         {
-            // Test whether the entered numbers are actually integers.
-            int noOfHumans, noOfCOMs;
-            try
-            {
-                if (!Int32.TryParse(args[0], out noOfHumans))
-                {
-                    Console.WriteLine("Please enter a number. You instead entered " + args[0]);
-                    return;
-                }
-                else if (!Int32.TryParse(args[1], out noOfCOMs))
-                {
-                    Console.WriteLine("Please enter a number. You instead entered " + args[1]);
-                    return;
-                }
-            }
-            catch (System.IndexOutOfRangeException)
-            {
-                Console.WriteLine("Please enter the number of human and COM players as arguments.\nFor example, to have 2 human and 1 COM players, enter 'Blackjack-Csharp-CLI 2 1'.");
-                return;
-            }
-
-            Deck mainDeck = new Deck();
-            mainDeck.Shuffle();
             List<Player> humanPlayers = new List<Player>();
             List<COM> comPlayers = new List<COM>();
-
             // Add all human players.
             for (int human = 0; human < noOfHumans; human++)
             {
@@ -74,6 +51,7 @@ namespace Blackjack_CSharp_CLI
                 comPlayers[currentCOM].PutCard(mainDeck.RemoveCard());
             }
 
+
             int highestPlayer = 0, highestValue = 0;
             bool winnerHuman = true;
             for (int currentPlayer = 0; currentPlayer < humanPlayers.Count; currentPlayer++)
@@ -83,10 +61,10 @@ namespace Blackjack_CSharp_CLI
                 {
                     DrawTable(humanPlayers);
                     DrawTable(comPlayers);
-                    if (humanPlayers[currentPlayer].WillHit(currentPlayer) == true)
+                    if (humanPlayers[currentPlayer].WillHit(currentPlayer))
                     {
                         humanPlayers[currentPlayer].PutCard(mainDeck.RemoveCard(), true);
-                        if (humanPlayers[currentPlayer].CheckBust() == true)
+                        if (humanPlayers[currentPlayer].CheckBust())
                         {
                             DrawTable(humanPlayers);
                             DrawTable(comPlayers);
@@ -120,11 +98,13 @@ namespace Blackjack_CSharp_CLI
                 {
                     DrawTable(humanPlayers);
                     DrawTable(comPlayers);
-                    if (comPlayers[currentPlayer].WillHit(currentPlayer) == true)
+                    if (comPlayers[currentPlayer].WillHit(currentPlayer))
                     {
-                        comPlayers[currentPlayer].PutCard(mainDeck.RemoveCard());
-                        if (comPlayers[currentPlayer].CheckBust() == true)
+                        comPlayers[currentPlayer].PutCard(mainDeck.RemoveCard(), true);
+                        if (comPlayers[currentPlayer].CheckBust())
                         {
+                            DrawTable(humanPlayers);
+                            DrawTable(comPlayers);
                             Console.WriteLine("You are bust! Press any key to continue to the next player.");
                             Console.ReadKey();
                             break;
@@ -151,15 +131,79 @@ namespace Blackjack_CSharp_CLI
             if (highestValue == 0)
             {
                 Console.WriteLine("No-one won this game.");
-                return;
             }
-            else if (winnerHuman == true)
+            else if (winnerHuman)
             {
 
                 Console.WriteLine("The winner is player " + (highestPlayer + 1).ToString());
+            }
+            else
+            {
+                Console.WriteLine("The winner is COM " + (highestPlayer + 1).ToString());
+            }
+
+            // Collect all cards and put them in a deck that'll be returned.
+            Deck toReturn = new Deck(new List<Card>());
+            foreach (Player currentPlayer in humanPlayers)
+            {
+                toReturn.ContainingCards.AddRange(currentPlayer.ContainingCards);
+            }
+            foreach (COM currentCOM in comPlayers)
+            {
+                toReturn.ContainingCards.AddRange(currentCOM.ContainingCards);
+            }
+            return toReturn.ContainingCards;
+        }
+
+        static void Main(string[] args)
+        {
+            // Test whether the entered numbers are actually integers.
+            int noOfHumans, noOfCOMs;
+            try
+            {
+                if (!Int32.TryParse(args[0], out noOfHumans))
+                {
+                    Console.WriteLine("Please enter a number. You instead entered " + args[0]);
+                    return;
+                }
+                else if (!Int32.TryParse(args[1], out noOfCOMs))
+                {
+                    Console.WriteLine("Please enter a number. You instead entered " + args[1]);
+                    return;
+                }
+            }
+            catch (System.IndexOutOfRangeException)
+            {
+                Console.WriteLine("Please enter the number of human and COM players as arguments.\nFor example, to have 2 human and 1 COM players, enter 'Blackjack-Csharp-CLI 2 1'.");
                 return;
             }
-            Console.WriteLine("The winner is COM " + (highestPlayer + 1).ToString());
+
+            Deck mainDeck = new Deck();
+            mainDeck.Shuffle();
+
+            // This is the normal gameplay loop.
+            // Notice that to ensure that all cards stay in the game, any used cards get passed back into mainDeck.
+            mainDeck.ContainingCards.AddRange(PlayGame(mainDeck, noOfHumans, noOfCOMs));
+            bool keepGoing = true;
+            while (keepGoing)
+            {
+                Console.WriteLine("Would you like to play again? [y/N]");
+                string choice = Console.ReadLine();
+                switch (choice.ToLower())
+                {
+                    case "y":
+                    case "yes":
+                        mainDeck.ContainingCards.AddRange(PlayGame(mainDeck, noOfHumans, noOfCOMs));
+                        break;
+                    case "n":
+                    case "no":
+                        keepGoing = false;
+                        break;
+                    default:
+                        Console.WriteLine("Please either type yes or no.");
+                        break;
+                }
+            }
         }
     }
 }

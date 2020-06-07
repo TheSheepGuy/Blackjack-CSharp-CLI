@@ -12,24 +12,7 @@ namespace Blackjack_CSharp_CLI
             {
                 Console.WriteLine("\nPlayer " + (currentPlayerNo + 1).ToString());
                 // Display all of the cards of the current player.
-                for (int currentCardNo = 0; currentCardNo < players[currentPlayerNo].ContainingCards.Count; currentCardNo++)
-                {
-                    // Save the colour of the suite.
-                    ConsoleColor suiteColour = players[currentPlayerNo].ContainingCards[currentCardNo].GetColour();
-                    // If the suite colour is black, then background should turn white to make it visible.
-                    if (suiteColour == ConsoleColor.Black)
-                    {
-                        Console.BackgroundColor = ConsoleColor.White;
-                        Console.ForegroundColor = suiteColour;
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = suiteColour;
-                    }
-                    Console.Write(players[currentPlayerNo].ContainingCards[currentCardNo].Suit + players[currentPlayerNo].ContainingCards[currentCardNo].Label);
-                    Console.ResetColor();
-                    Console.Write("  ");
-                }
+                players[currentPlayerNo].DrawDeck();
                 Console.ResetColor();
             }
         }
@@ -39,24 +22,7 @@ namespace Blackjack_CSharp_CLI
             {
                 Console.WriteLine("\nCOM " + (currentPlayerNo + 1).ToString());
                 // Display all of the cards of the current player.
-                for (int currentCardNo = 0; currentCardNo < players[currentPlayerNo].ContainingCards.Count; currentCardNo++)
-                {
-                    // Save the colour of the suite.
-                    ConsoleColor suiteColour = players[currentPlayerNo].ContainingCards[currentCardNo].GetColour();
-                    // If the suite colour is black, then background should turn white to make it visible.
-                    if (suiteColour == ConsoleColor.Black)
-                    {
-                        Console.BackgroundColor = ConsoleColor.White;
-                        Console.ForegroundColor = suiteColour;
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = suiteColour;
-                    }
-                    Console.Write(players[currentPlayerNo].ContainingCards[currentCardNo].Suit + players[currentPlayerNo].ContainingCards[currentCardNo].GetLabel());
-                    Console.ResetColor();
-                    Console.Write("  ");
-                }
+                players[currentPlayerNo].DrawDeck();
                 Console.ResetColor();
             }
         }
@@ -120,7 +86,7 @@ namespace Blackjack_CSharp_CLI
                     DrawTable(comPlayers);
                     if (humanPlayers[currentPlayer].WillHit(currentPlayer) == true)
                     {
-                        humanPlayers[currentPlayer].PutCard(mainDeck.RemoveCard());
+                        humanPlayers[currentPlayer].PutCard(mainDeck.RemoveCard(), true);
                         if (humanPlayers[currentPlayer].CheckBust() == true)
                         {
                             DrawTable(humanPlayers);

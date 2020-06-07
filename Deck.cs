@@ -59,8 +59,9 @@ namespace Blackjack_CSharp_CLI
             ContainingCards.RemoveAt(0);
             return toReturn;
         }
-        public void PutCard(Card toPut)
+        public void PutCard(Card toPut, bool reveal = false)
         {
+            toPut.Revealed = reveal;
             ContainingCards.Add(toPut);
             TotalValue += toPut.Value;
         }
@@ -70,6 +71,33 @@ namespace Blackjack_CSharp_CLI
             {
                 currentCard.Revealed = true;
             }
+        }
+        public void DrawDeck()
+        {
+            for (int currentCardNo = 0; currentCardNo < ContainingCards.Count; currentCardNo++)
+            {
+                if (ContainingCards[currentCardNo].Revealed == false)
+                {
+                    Console.WriteLine("??");
+                    continue;
+                }
+                // Save the colour of the suite.
+                ConsoleColor suiteColour = ContainingCards[currentCardNo].GetColour();
+                // If the suite colour is black, then background should turn white to make it visible.
+                if (suiteColour == ConsoleColor.Black)
+                {
+                    Console.BackgroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = suiteColour;
+                }
+                else
+                {
+                    Console.ForegroundColor = suiteColour;
+                }
+                Console.Write(ContainingCards[currentCardNo].Suit + ContainingCards[currentCardNo].Label);
+                Console.ResetColor();
+                Console.Write("  ");
+            }
+            Console.ResetColor();
         }
     }
 }

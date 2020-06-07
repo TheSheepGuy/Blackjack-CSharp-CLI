@@ -35,12 +35,12 @@ A blackjack clone being able to be played using the command line.
 ### Card
 
 * Properties:
-  * Value, int (Ace = 1, J Q K = 11 12 13)
+  * Value, int (Ace = 11, J Q K = 11 12 13)
   * Suit, string (diamonds and hearts are red, clubs and spades are black)
+  * Label, string (this is the "name" of the card, its label, e.g. A for ace, Q for queen.)
   * Revealed, bool
 * Methods:
-  * GetLabel, string (returns the label of the card: "A", "1", "2", …, "10", "J", "Q", "K")
-  * GetColour, string (returns "red" or "black")
+  * GetColour, ConsoleColor (returns the console colour red or black which is used to colour the foreground.)
 
 ### Deck
 
@@ -57,9 +57,8 @@ A blackjack clone being able to be played using the command line.
 
 * Inherits from Deck.
 * Properites:
-  * IsBust, bool
+  * [None].
 * Methods:
-  * Override RemoveCard and PutCard by subtracting/adding the value to TotalValue.
   * CheckBust, bool (checks if the totalValue is over 21)
   * WillHit, bool (asks the player whether to hit or hold. If the player hits, then return true, otherwise (if the player holds), false.)
 

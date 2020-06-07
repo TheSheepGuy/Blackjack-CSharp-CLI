@@ -16,7 +16,7 @@ namespace Blackjack_CSharp_CLI
             {
                 for (int i = 0; i < ContainingCards.Count; i++)
                 {
-                    if (ContainingCards[i].Label == "A")
+                    if (ContainingCards[i].Label == "A" && ContainingCards[i].Value == 11)
                     {
                         ContainingCards[i].Value = 1;
                         TotalValue -= 10;

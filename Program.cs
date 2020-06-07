@@ -103,6 +103,8 @@ namespace Blackjack_CSharp_CLI
                         comPlayers[currentPlayer].PutCard(mainDeck.RemoveCard(), true);
                         if (comPlayers[currentPlayer].CheckBust())
                         {
+                            DrawTable(humanPlayers);
+                            DrawTable(comPlayers);
                             Console.WriteLine("You are bust! Press any key to continue to the next player.");
                             Console.ReadKey();
                             break;

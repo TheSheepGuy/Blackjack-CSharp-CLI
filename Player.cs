@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Blackjack_CSharp_CLI
 {
@@ -12,16 +11,20 @@ namespace Blackjack_CSharp_CLI
         public Player(List<Card> givenCards) : base(givenCards) { }
         public bool CheckBust()
         {
+            // This is to implement the way that an ace can either be 11 or 1 depending on which is more convenient.
+            // If the total value is above 21, check whether there's an ace that can be changed from 11 to 1.
             if (TotalValue > 21)
             {
-                for (int i = 0; i < ContainingCards.Count; i++)
+                // Loop through each card to see whether it's an ace.
+                foreach (Card currentCard in ContainingCards)
                 {
-                    if (ContainingCards[i].Label == "A" && ContainingCards[i].Value == 11)
+                    // If it is, change it to a 1 in hope of now bringing the total to below 21.
+                    if (currentCard.Label == "A" && currentCard.Value == 11)
                     {
-                        ContainingCards[i].Value = 1;
+                        currentCard.Value = 1;
                         TotalValue -= 10;
-                        if (TotalValue > 21) continue;
-                        else break;
+                        // If it's not over 21 anymore, there's no need to keep looping, so break.
+                        if (TotalValue <= 21) break;
                     }
                 }
             }
@@ -32,7 +35,7 @@ namespace Blackjack_CSharp_CLI
             string choice;
             while (true)
             {
-                Console.Write("\nWould you like to hit or hold, player" + " " + (playerNumber+1).ToString() + " [hi/ho]? ");
+                Console.Write("\nWould you like to hit or hold, player" + " " + (playerNumber + 1).ToString() + " [hi/ho]? ");
                 choice = Console.ReadLine();
                 switch (choice.ToLower())
                 {

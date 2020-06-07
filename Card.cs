@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Blackjack_CSharp_CLI
 {
@@ -9,7 +7,8 @@ namespace Blackjack_CSharp_CLI
         public int Value { get; set; }
         public string Label { get; set; }
         public string suit;
-        public string Suit {
+        public string Suit
+        {
             get
             {
                 return suit switch

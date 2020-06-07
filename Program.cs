@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Blackjack_CSharp_CLI
 {
@@ -80,7 +79,7 @@ namespace Blackjack_CSharp_CLI
             for (int currentPlayer = 0; currentPlayer < humanPlayers.Count; currentPlayer++)
             {
                 humanPlayers[currentPlayer].RevealAll();
-                while(true)
+                while (true)
                 {
                     DrawTable(humanPlayers);
                     DrawTable(comPlayers);
@@ -117,7 +116,7 @@ namespace Blackjack_CSharp_CLI
             for (int currentPlayer = 0; currentPlayer < comPlayers.Count; currentPlayer++)
             {
                 comPlayers[currentPlayer].RevealAll();
-                while(true)
+                while (true)
                 {
                     DrawTable(humanPlayers);
                     DrawTable(comPlayers);
@@ -157,10 +156,10 @@ namespace Blackjack_CSharp_CLI
             else if (winnerHuman == true)
             {
 
-                Console.WriteLine("The winner is player " + (highestPlayer+1).ToString());
+                Console.WriteLine("The winner is player " + (highestPlayer + 1).ToString());
                 return;
             }
-            Console.WriteLine("The winner is COM " + (highestPlayer+1).ToString());
+            Console.WriteLine("The winner is COM " + (highestPlayer + 1).ToString());
         }
     }
 }

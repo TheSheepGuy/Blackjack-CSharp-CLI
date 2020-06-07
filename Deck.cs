@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading;
 
 namespace Blackjack_CSharp_CLI
 {
@@ -30,7 +28,7 @@ namespace Blackjack_CSharp_CLI
             {
                 ContainingCards.Add(new Card(spadeLoop, "spade", false));
             }
-            TotalValue = 394;
+            TotalValue = 380;
         }
         public Deck(List<Card> initialCards)
         {

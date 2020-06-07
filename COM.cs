@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 
 namespace Blackjack_CSharp_CLI
@@ -51,7 +50,7 @@ namespace Blackjack_CSharp_CLI
         {
             // The COM will hit as long as their TotalValue is less than or equal to their willingness.
             // This is an extremelly simple AI and doesn't take the other players' decks into account.
-            Console.Write("\nWould you like to hit or hold, player" + " " + (comNumber+1).ToString() + " [hi/ho]? ");
+            Console.Write("\nWould you like to hit or hold, player" + " " + (comNumber + 1).ToString() + " [hi/ho]? ");
             Thread.Sleep(750);
             if (TotalValue <= MaxHitWillingness)
             {
@@ -71,7 +70,6 @@ namespace Blackjack_CSharp_CLI
                 Console.WriteLine();
                 return false;
             }
-            // return TotalValue <= MaxHitWillingness;
         }
     }
 }

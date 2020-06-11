@@ -174,7 +174,7 @@ namespace Blackjack_CSharp_CLI
             }
             catch (System.IndexOutOfRangeException)
             {
-                Console.WriteLine("Please enter the number of human and COM players as arguments.\nFor example, to have 2 human and 1 COM players, enter 'Blackjack-Csharp-CLI 2 1'.");
+                Console.WriteLine("Please enter the number of human and COM players as arguments.\nFor example, to have 2 human and 1 COM players, enter 'blackjack 2 1'.");
                 return;
             }
 

@@ -186,7 +186,7 @@ namespace Blackjack_CSharp_CLI
             bool keepGoing = true;
             while (keepGoing)
             {
-                Console.WriteLine("Would you like to play again? [y/N]");
+                Console.WriteLine("Would you like to play again? [y/n]");
                 string choice = Console.ReadLine();
                 switch (choice.ToLower())
                 {
